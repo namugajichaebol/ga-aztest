@@ -28,8 +28,14 @@ jobs:
           scope: subscription
           subscriptionId: ${{ env.subscriptionId }}
           region: "${{ env.location }}"
-          template: ./resourcegroup.json
+          template: ./Labs/03/az104-03b-md-template.json
           parameters:
+            diskname="az104-03a-disk1"
+            sku="Standard_LRS"
+            diskSizeGB=32
+            createOption="empty"
+            diskEncryptionSetType="EncryptionAtRestWithPlatformKey"
+            networkAccessPolicy="AllowAll"
             location="${{ env.location }}"
             resourceGroupName=${{ env.resource_group_name }}
           deploymentName: ${{ env.resource_group_name }}
