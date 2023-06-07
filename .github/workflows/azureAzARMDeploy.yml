@@ -31,12 +31,13 @@ jobs:
           template: ./Labs/03/az104-03b-md-template.json
           parameters:
             diskName="az104-03a-disk1"
+            location="${{ env.location }}"
             sku="Standard_LRS"
             diskSizeGb=32
+            sourceResourceId=
             createOption="empty"
             diskEncryptionSetType="EncryptionAtRestWithPlatformKey"
             networkAccessPolicy="AllowAll"
-            location="${{ env.location }}"
-            resourceGroupName=${{ env.resource_group_name }}
+
           deploymentName: ${{ env.resource_group_name }}
 
