@@ -1,0 +1,7 @@
+{
+  "type": "Microsoft.Resources/resourceGroups",
+  "apiVersion": "2022-09-01",
+  "name": "az104-03a-rg1",
+  "location": "eastus",
+  "properties": {}
+}
