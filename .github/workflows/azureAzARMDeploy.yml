@@ -32,7 +32,7 @@ jobs:
           parameters:
             diskName="az104-03a-disk1"
             sku="Standard_LRS"
-            diskSizeGB=32
+            diskSizeGb=32
             createOption="empty"
             diskEncryptionSetType="EncryptionAtRestWithPlatformKey"
             networkAccessPolicy="AllowAll"
