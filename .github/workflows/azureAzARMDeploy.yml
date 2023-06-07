@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
 
 env:
-  subscriptionId: 
+  subscriptionId: 32816311-ade2-448c-9f66-81dc2e916bfa
 
 jobs:
   armDeployment:
     name: Deploy ARM Template
     runs-on: ubuntu-latest
     env:
-      resource_group_name: 
+      resource_group_name: ResourceGroup1
       location: eastus
 
     steps:
