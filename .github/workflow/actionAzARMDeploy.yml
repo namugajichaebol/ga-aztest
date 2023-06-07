@@ -1,1 +1,17 @@
+name: actionAzARMDeploy
 
+on:
+  workflow_dispatch:
+
+env:
+  subscriptionId: 
+
+jobs:
+  armDeployment:
+    name: Deploy ARM Template
+    runs-on: ubuntu-latest
+    env:
+      resource_group_name: 
+      location: eastus
+
+    steps:
