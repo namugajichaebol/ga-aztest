@@ -30,7 +30,7 @@ jobs:
           region: "${{ env.location }}"
           template: ./Labs/03/az104-03b-md-template.json
           parameters:
-            diskname="az104-03a-disk1"
+            diskName="az104-03a-disk1"
             sku="Standard_LRS"
             diskSizeGB=32
             createOption="empty"
