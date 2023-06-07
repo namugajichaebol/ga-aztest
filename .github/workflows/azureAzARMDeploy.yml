@@ -34,6 +34,7 @@ jobs:
             diskName="az104-03a-disk1"
             location="${{ env.location }}"
             sku="Standard_LRS"
+            sourceResourceId=""
             diskSizeGb=32
             createOption="empty"
             diskEncryptionSetType="EncryptionAtRestWithPlatformKey"
