@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  subscriptionId: 32816311-ade2-448c-9f66-81dc2e916bfb
+  subscriptionId: 61b6a2a9-c491-4d26-ad5f-a11e3aebdcdb
 
 jobs:
   armDeployment:
