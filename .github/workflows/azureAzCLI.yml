@@ -70,11 +70,11 @@ jobs:
       - name: Deploy Azure Resource
         uses: Azure/arm-deploy@v1
         with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resource_group_name }}
           subscriptionId: ${{ env.subscriptionId }}
           deploymentName: ${{ env.resource_group_name }}
-          template: ./workflows/bicep/resourcegroup.bicep
-          parameters:
-            resourceGroupName=${{ env.resource_group_name }}
-            location="${{ env.location }}"
+          template: ./webApp.bicep
+          parameters:  helloWorld=true
           failOnStdErr: false
         
