@@ -36,4 +36,4 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/workflow/scripts/azureAzCLI.sh
-            $GITHUB_WORKSPACE/workflow/scripts/azureAzCLI.sh
+            $GITHUB_WORKSPACE/workflow/scripts/azureAzCLI.sh "${{ env.resource_group_name }}"
