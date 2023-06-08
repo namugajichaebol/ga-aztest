@@ -1,0 +1,30 @@
+name: actionAzARMDeploy2
+
+on:
+  workflow_dispatch:
+
+env:
+  subscriptionId: 00e0fe3d-22f6-4664-9303-dcb3fd6ee484
+
+jobs:
+  armDeployment:
+    name: Deploy ARM Template
+    runs-on: ubuntu-latest
+    env:
+      resource_group_name: az104-03a-rg1
+      location: eastus
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            az deployment group list --resource-group "${{ env.resource_group_name }}"
