@@ -8,7 +8,7 @@ env:
 
 jobs:
   armDeployment:
-    name: Deploy ARM Template
+    name: Test running Azure CLI Workflow
     runs-on: ubuntu-latest
     env:
       resource_group_name: az104-03a-rg1
@@ -23,8 +23,9 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Azure CLI script
-        uses: azure/CLI@v1
+        uses: Azure/CLI@v1
         with:
           azcliversion: 2.30.0
           inlineScript: |
+            az group list
             az deployment group list --resource-group "${{ env.resource_group_name }}"
