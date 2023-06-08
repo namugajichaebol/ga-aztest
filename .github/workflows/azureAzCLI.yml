@@ -39,24 +39,24 @@ jobs:
             $GITHUB_WORKSPACE/workflow/scripts/azureAzCLI.sh "${{ env.resource_group_name }}"
       
   azurePowerShellAction:
-    - name: Test running Azure PowerShell Workflow
-      runs-on: ubuntu-latest
-      env:
-        resource_group_name: az104-03a-rg1
-        location: eastus
+    name: Test running Azure PowerShell Workflow
+    runs-on: ubuntu-latest
+    env:
+      resource_group_name: az104-03a-rg1
+      location: eastus
 
-      steps:
-        - uses: actions/checkout@v3
-
-        - name: Azure Login
-          uses: Azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-            enable-AzPSSession: true 
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true 
         
-        - name: Run Azure PowerShell script
-          uses: azure/powershell@v1
-          with:
-            inlineScript: |
-              Get-AzVM -ResourceGroupName "${{ env.resource_group_name }}"
-              azPSVersion: "latest"
+      - name: Run Azure PowerShell script
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Get-AzVM -ResourceGroupName "${{ env.resource_group_name }}"
+            azPSVersion: "latest"
