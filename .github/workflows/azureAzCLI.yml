@@ -1,4 +1,4 @@
-name: actionAzCLI
+name: actionAzWorkflows
 
 on:
   workflow_dispatch:
