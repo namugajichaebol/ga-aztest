@@ -67,7 +67,7 @@ jobs:
           inlineScript: |
             New-AzDisk -ResourceGroupName "${{ env.resource_group_name }}" `
               -DiskName 'az104-03c-disk1' `
-              -Location location `
+              -Location "${{ env.location }}" `
               -CreateOption Empty `
               -DiskSizeGB 32 `
               -Sku Standard_LRS 
