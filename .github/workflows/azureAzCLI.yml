@@ -66,9 +66,5 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            New-AzDisk -ResourceGroupName "${{ env.resource_group_name }}" `
-              -DiskName 'az104-03c-disk1' `
-              -CreateOption Empty `
-              -DiskSizeGB 32 `
-              -Sku Standard_LRS 
+            ./workflows/scripts/azureAzPowerShell2.ps1
           azPSVersion: "latest"
