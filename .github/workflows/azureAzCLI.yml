@@ -58,8 +58,7 @@ jobs:
         uses: Azure/powershell@v1
         with:
           inlineScript: |
-            Get-AzResourceGroup `
-              -Name "${{ env.resource_group_name }}"
+            Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
           azPSVersion: "latest"
 
       - name: Run Azure PowerShell Script File
@@ -70,3 +69,14 @@ jobs:
           azPSVersion: "latest"
 
 # try azure deploy
+      - name: Deploy Azure Resource
+        uses: Azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ env.subscriptionId }}
+          deploymentName: ${{ env.resource_group_name }}
+          template: ./workflows/bicep/resourcegroup.bicep
+          parameters:
+            resourceGroupName=${{ env.resource_group_name }}
+            location="${{ env.location }}"
+          failOnStdErr: false
+        
