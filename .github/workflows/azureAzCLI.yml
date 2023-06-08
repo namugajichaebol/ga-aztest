@@ -55,7 +55,7 @@ jobs:
           enable-AzPSSession: true 
         
       - name: Run Azure PowerShell
-        uses: azure/powershell@v1
+        uses: Azure/powershell@v1
         with:
           inlineScript: |
             Get-AzResourceGroup `
@@ -63,7 +63,7 @@ jobs:
           azPSVersion: "latest"
 
       - name: Run Azure PowerShell Script File
-        uses: azure/powershell@v1
+        uses: Azure/powershell@v1
         with:
           inlineScript: |
             ./workflows/scripts/azureAzPowerShell2.ps1
