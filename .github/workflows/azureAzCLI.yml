@@ -61,4 +61,10 @@ jobs:
             Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
           azPSVersion: "latest"
 
-
+      - name: Run Azure PowerShell Script File
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/workflows/scripts/azureAzPowerShell.ps1
+            $GITHUB_WORKSPACE/workflows/scripts/azureAzPowerShell.ps1
+          azPSVersion: "latest"
