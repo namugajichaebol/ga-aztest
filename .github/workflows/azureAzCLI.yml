@@ -59,6 +59,7 @@ jobs:
         with:
           inlineScript: |
             Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
+            Get-AzSubscription -SubscriptionId "${{ env.subscriptionId }}"
           azPSVersion: "latest"
 
       - name: Run Azure PowerShell Script File
