@@ -59,4 +59,4 @@ jobs:
         with:
           inlineScript: |
             Get-AzVM -ResourceGroupName "${{ env.resource_group_name }}"
-            azPSVersion: "latest"
+          azPSVersion: "latest"
