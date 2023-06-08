@@ -65,6 +65,5 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            chmod +x $GITHUB_WORKSPACE/workflows/scripts/azureAzPowerShell.ps1
-            $GITHUB_WORKSPACE/workflows/scripts/azureAzPowerShell.ps1
+            ./workflows/scripts/azureAzPowerShell.ps1
           azPSVersion: "latest"
