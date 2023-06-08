@@ -1,4 +1,4 @@
-name: actionAzARMDeploy2
+name: actionAzCLI
 
 on:
   workflow_dispatch:
