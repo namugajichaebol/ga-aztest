@@ -3,8 +3,8 @@ name: actionAzWorkflows
 on:
   workflow_dispatch:
 
-env:
-  subscriptionId: efb5c385-f1e6-46ce-a962-34cf856ebe08
+# env:
+#  subscriptionId: efb5c385-f1e6-46ce-a962-34cf856ebe08
 
 jobs:
   azureCLIAction:
