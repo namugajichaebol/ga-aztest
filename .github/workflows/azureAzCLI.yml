@@ -58,7 +58,8 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
+            Get-AzResourceGroup `
+              -Name "${{ env.resource_group_name }}"
           azPSVersion: "latest"
 
       - name: Run Azure PowerShell Script File
