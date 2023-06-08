@@ -68,3 +68,5 @@ jobs:
           inlineScript: |
             ./workflows/scripts/azureAzPowerShell2.ps1
           azPSVersion: "latest"
+
+# try azure deploy
