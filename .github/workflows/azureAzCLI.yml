@@ -7,7 +7,7 @@ env:
   subscriptionId: 00e0fe3d-22f6-4664-9303-dcb3fd6ee484
 
 jobs:
-  armDeployment:
+  azureCLIDeploy:
     name: Test running Azure CLI Workflow
     runs-on: ubuntu-latest
     env:
