@@ -22,10 +22,18 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Azure CLI script
+      - name: Azure CLI
         uses: Azure/CLI@v1
         with:
           azcliversion: 2.30.0
           inlineScript: |
             az group list
             az deployment group list --resource-group "${{ env.resource_group_name }}"
+
+      - name: Azure CLI script
+        uses: Azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/workflow/scripts/azureAzCLI.sh
+            $GITHUB_WORKSPACE/workflow/scripts/azureAzCLI.sh
