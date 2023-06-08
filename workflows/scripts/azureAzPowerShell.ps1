@@ -1,5 +1,8 @@
 #!/usr/bin/env pwsh
 
+$rgName = 'az104-03c-rg1'
+$location = 'eastus'
+
 $diskConfig = New-AzDiskConfig `
 -Location $location `
 -CreateOption Empty `
