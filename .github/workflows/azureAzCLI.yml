@@ -8,36 +8,6 @@ env:
   vmName: ManufacturingVM
   
 jobs:
-  azurePowerShellAction:
-    name: Test running Azure PowerShell Workflow
-    runs-on: ubuntu-latest
-    env:
-      location: eastus
-
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Deploy Azure Resource Core Services VMs
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourceGroupName: ${{ env.resource_group_name }}
-          deploymentName: ${{ env.resource_group_name }}
-          template: ./Labs/02/windows.bicep
-          parameters:  
-            adminUsername=TestUser
-            adminPassword=${{ secrets.adminPassword }}
-            location=${{ env.location }}
-            vmName=${{ env.vmName }}
-            virtualNetworkName=CoreServicesVnet
-            subnetName=DatabaseSubnet
-          failOnStdErr: false
-
   azurePowerShellAction2:
     name: Test running Azure PowerShell Workflow2
     runs-on: ubuntu-latest
