@@ -34,7 +34,6 @@ jobs:
             adminPassword=${{ secrets.adminPassword }}
             location=${{ env.location }}
             vmName=${{ env.vmName }}
-            vmSize='Standard_D2as_v5'
             virtualNetworkName='CoreServicesVnet'
             subnetName='DatabaseSubnet'
           failOnStdErr: false
