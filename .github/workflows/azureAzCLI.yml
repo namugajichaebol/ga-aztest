@@ -27,6 +27,7 @@ jobs:
           resourceGroupName: ${{ env.resource_group_name }}
           subscriptionId: ${{ env.subscriptionId }}
           deploymentName: ${{ env.resource_group_name }}
-          template: ./Labs/02/azuredeploy.json
+          template: ./Labs/02/CoreServicesVMazuredeploy.json
+          parameters:  ./Labs/02/CoreServicesVMazuredeploy.parameters.json
           failOnStdErr: false
 
