@@ -25,6 +25,6 @@ jobs:
         with:
           inlineScript: |
             Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
-            Get-AzSubscription -SubscriptionId "${{ secrets.subscriptionId }}"
+            echo "${{ secrets.subscriptionId }}"
           azPSVersion: "latest"
         
