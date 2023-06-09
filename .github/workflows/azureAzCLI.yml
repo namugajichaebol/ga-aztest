@@ -30,12 +30,12 @@ jobs:
           deploymentName: ${{ env.resource_group_name }}
           template: ./Labs/02/windows.bicep
           parameters:  
-            adminUsername='TestUser'
+            adminUsername=TestUser
             adminPassword=${{ secrets.adminPassword }}
             location=${{ env.location }}
             vmName=${{ env.vmName }}
-            virtualNetworkName='CoreServicesVnet'
-            subnetName='DatabaseSubnet'
+            virtualNetworkName=CoreServicesVnet
+            subnetName=DatabaseSubnet
           failOnStdErr: false
 
   azurePowerShellAction2:
