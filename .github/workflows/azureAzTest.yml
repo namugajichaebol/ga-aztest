@@ -5,7 +5,7 @@ on:
 
 env:
   resource_group_name: rg-namigaji
-
+needs:
 jobs:
   azureCLIAction:
     name: Test running Azure CLI Workflow
