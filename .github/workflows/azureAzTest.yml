@@ -1,4 +1,4 @@
-name: actionAzWorkflows
+name: actionAzWorkflows2
 
 on:
   workflow_dispatch:
