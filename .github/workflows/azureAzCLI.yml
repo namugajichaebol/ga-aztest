@@ -31,8 +31,9 @@ jobs:
           azPSVersion: "latest"
 
   azurePowerShellAction2:
-    name: Test running Azure PowerShell Workflow
+    name: Test running Azure PowerShell Workflow2
     runs-on: ubuntu-latest
+    needs: azurePowerShellAction
     env:
       location: westus
 
