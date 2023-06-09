@@ -25,6 +25,7 @@ jobs:
         with:
           inlineScript: |
             Invoke-AzVMRunCommand -ResourceGroupName ${{ env.resource_group_name }} `
+              -VMName CoreServicesVM `
               -CommandId 'RunPowerShellScript' `
               -ScriptPath ./Labs/02/install-Bicep.ps1          
           azPSVersion: "latest"
