@@ -20,15 +20,13 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true  
 
-
-
       - name: Run Azure PowerShell
         uses: Azure/powershell@v1
         with:
           inlineScript: |
-            Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
-            Get-AzSubscription -SubscriptionId "${{ secrets.subscriptionId }}"
+            New-AzResourceGroupDeployment -ResourceGroupName "${{ env.resource_group_name }}" `
+              -TemplateFile ./Labs/02/ManufacturingVMazuredeploy.json `
+              -TemplateParameterFile ./Labs/02/ManufacturingVMazuredeploy.parameters.json `
+              -adminPassword "${{ secrets.adminPassword }}"            
           azPSVersion: "latest"
         
-
-
