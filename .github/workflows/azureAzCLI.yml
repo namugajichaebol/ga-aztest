@@ -5,13 +5,13 @@ on:
 
 env:
   resource_group_name: az104-09a-rg1-lod31673461
+  webAppName: app-namugaji666
   
 jobs:
-  azurePowerShellAction2:
+  azurePowerShellAction:
     name: Test running Azure PowerShell Workflow2
     runs-on: ubuntu-latest
     env:
-      webAppName: app-namugaji666
       location: eastus
       
     steps:
@@ -37,5 +37,23 @@ jobs:
           name: webAppNameObject
           path: ${{ env.webAppName }}.json   
           retention-days: 1
-    
+
+  job_3:
+    name: Display results
+    runs-on: ubuntu-latest
+    needs: azurePowerShellAction
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download math result for job 2
+        uses: actions/download-artifact@v3
+        with:
+          name: webAppNameObject
+      
+      - name: Print the final result
+        shell: pwsh
+        run: |
+          $webApp = Get-Content ${{ env.webAppName }}.json -Raw | ConvertFrom-Json
+          Invoke-WebRequest -Uri $webApp.DefaultHostName
+          
 
