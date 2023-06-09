@@ -8,7 +8,7 @@ jobs:
     name: Test running Azure CLI Workflow
     runs-on: ubuntu-latest
     env:
-      resource_group_name: az104-03c-rg1
+      resource_group_name: ContosoResourceGroup
       location: eastus
 
     steps:
@@ -39,7 +39,7 @@ jobs:
     name: Test running Azure PowerShell Workflow
     runs-on: ubuntu-latest
     env:
-      resource_group_name: az104-03c-rg1
+      resource_group_name: ContosoResourceGroup
       location: eastus
 
     steps:
@@ -59,22 +59,3 @@ jobs:
             Get-AzSubscription -SubscriptionId "${{ env.subscriptionId }}"
           azPSVersion: "latest"
 
-      - name: Run Azure PowerShell Script File
-        uses: Azure/powershell@v1
-        with:
-          inlineScript: |
-            ./workflows/scripts/azureAzPowerShell2.ps1
-          azPSVersion: "latest"
-
-# try azure deploy
-      - name: Deploy Azure Resource
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourceGroupName: ${{ env.resource_group_name }}
-          subscriptionId: ${{ env.subscriptionId }}
-          deploymentName: ${{ env.resource_group_name }}
-          template: ./webApp.bicep
-          parameters:  helloWorld=true
-          failOnStdErr: false
-        
