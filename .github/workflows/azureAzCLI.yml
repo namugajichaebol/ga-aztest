@@ -27,6 +27,6 @@ jobs:
             New-AzResourceGroupDeployment -ResourceGroupName ${{ env.resource_group_name }} `
               -TemplateFile ./Labs/02/ManufacturingVMazuredeploy.json `
               -TemplateParameterFile ./Labs/02/ManufacturingVMazuredeploy.parameters.json `
-              -adminPassword ${{ secrets.adminPassword }}            
+              -adminPassword ${{ env.adminPassword }}            
           azPSVersion: "latest"
         
