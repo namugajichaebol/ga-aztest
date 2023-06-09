@@ -3,12 +3,14 @@ name: actionAzWorkflows
 on:
   workflow_dispatch:
 
+env:
+  resource_group_name: ContosoResourceGroup
+
 jobs:
   azurePowerShellAction:
     name: Test running Azure PowerShell Workflow
     runs-on: ubuntu-latest
     env:
-      resource_group_name: ContosoResourceGroup
       location: eastus
 
     steps:
@@ -27,4 +29,15 @@ jobs:
             echo "what the jesus... ${{ secrets.subscriptionId }}"
             echo "what the buddha... ${{ secrets.subscriptionIdd }}"
           azPSVersion: "latest"
-        
+
+      - name: Run Azure PowerShell
+        uses: Azure/powershell@v1
+        with:
+          inlineScript: |
+            Invoke-AzVMRunCommand -ResourceGroupName ${{ env.resource_group_name }} `
+              -VMName CoreServicesVM `
+              -CommandId 'RunPowerShellScript' `
+              -ScriptPath ./Labs/02/install-Bicep.ps1          
+          azPSVersion: "latest"
+
+
