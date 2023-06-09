@@ -5,14 +5,14 @@ on:
 
 env:
   resource_group_name: ContosoResourceGroup
-
+  vmName: ManufacturingVM
+  
 jobs:
   azurePowerShellAction:
     name: Test running Azure PowerShell Workflow
     runs-on: ubuntu-latest
     env:
       location: eastus
-      vmName: ManufacturingVM
 
     steps:
       - uses: actions/checkout@v3
@@ -44,7 +44,6 @@ jobs:
     needs: azurePowerShellAction
     env:
       location: eastus
-      vmName: vm-namugaji01
       
     steps:
       - uses: actions/checkout@v3
