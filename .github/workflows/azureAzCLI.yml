@@ -27,12 +27,6 @@ jobs:
           resourceGroupName: ${{ env.resource_group_name }}
           subscriptionId: ${{ env.subscriptionId }}
           deploymentName: ${{ env.resource_group_name }}
-          template: ./Labs/02/CoreServicesVMazuredeploy.json
-          parameters:  
-            vmName1=CoreServicesVM
-            nicName1=CoreServicesVM-nic
-            vmSize=Standard_DS1_v2
-            adminUsername=TestUser
-            adminPassword=${{ env.clientId }}
+          template: ./Labs/02/azuredeploy.json
           failOnStdErr: false
 
