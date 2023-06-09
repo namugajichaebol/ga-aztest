@@ -25,9 +25,9 @@ jobs:
         with:
           scope: resourcegroup
           resourceGroupName: ${{ env.resource_group_name }}
-          subscriptionId: ${{ env.subscriptionId }}
+          subscriptionId: ${{ secrets.subscriptionId }}
           deploymentName: ${{ env.resource_group_name }}
           template: ./Labs/02/CoreServicesVMazuredeploy.json
-          parameters:  ./Labs/02/CoreServicesVMazuredeploy.parameters.json
+          parameters:  ./Labs/02/CoreServicesVMazuredeploy.parameters.json  adminPassword=${{ secrets.adminPassword }}
           failOnStdErr: false
 
