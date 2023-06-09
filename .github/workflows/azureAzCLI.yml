@@ -18,13 +18,21 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true 
+
         
-      - name: Run Azure PowerShell
-        uses: Azure/powershell@v1
+      - name: Deploy Azure Resource
+        uses: Azure/arm-deploy@v1
         with:
-          inlineScript: |
-            Get-AzResourceGroup -Name "${{ env.resource_group_name }}"
-            Get-AzSubscription -SubscriptionId "${{ env.subscriptionId }}"
-          azPSVersion: "latest"
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resource_group_name }}
+          subscriptionId: ${{ env.subscriptionId }}
+          deploymentName: ${{ env.resource_group_name }}
+          template: ./Labs/02/CoreServicesVMazuredeploy.json
+          parameters:  
+            vmName1=CoreServicesVM
+            nicName1=CoreServicesVM-nic
+            vmSize=Standard_DS1_v2
+            adminUsername=TestUser
+            adminPassword=${{ env.clientId }}
+          failOnStdErr: false
 
