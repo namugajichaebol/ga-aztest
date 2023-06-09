@@ -4,15 +4,14 @@ on:
   workflow_dispatch:
 
 env:
-  resource_group_name: ContosoResourceGroup
-  vmName: ManufacturingVM
+  resource_group_name: az104-09a-rg1-lod31673461
   
 jobs:
   azurePowerShellAction2:
     name: Test running Azure PowerShell Workflow2
     runs-on: ubuntu-latest
-    needs: azurePowerShellAction
     env:
+      webAppName: app-namugaji666
       location: eastus
       
     steps:
@@ -28,11 +27,15 @@ jobs:
         uses: Azure/powershell@v1
         with:
           inlineScript: |
-            Invoke-AzVMRunCommand -ResourceGroupName ${{ env.resource_group_name }} `
-              -VMName ${{ env.vmName }} `
-              -CommandId 'RunPowerShellScript' `
-              -ScriptPath ./Labs/02/install-Bicep.ps1          
+            Get-AzWebApp -ResourceGroupName ${{ env.resource_group_name }} `
+              -Name ${{ env.webAppName }} | ConvertTo-Json > ${{ env.webAppName }}.json        
           azPSVersion: "latest"
-
+          
+      - name: Upload ${{ env.webAppName }.json   
+        uses: actions/upload-artifact@v3
+        with:
+          name: webAppNameObject
+          path: ${{ env.webAppName }}.json   
+          retention-days: 1
     
 
