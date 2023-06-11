@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  resource_group_name: rg-namugaji
+  resource_group_name: createPrivateEndpointQS-rg
   webAppName: app-namugaji667
   artifactRetention: 1
   
@@ -53,4 +53,27 @@ jobs:
           path: ${{ env.webAppName }}.json   
           retention-days: ${{ env.artifactRetention }}
 
-          
+  validateWebAppDeploy:
+    name: Display results
+    runs-on: ubuntu-latest
+    needs: azureWebAppDeploy
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download WebApp Properties Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: webAppNameObject
+      
+      - name: Parse DefaultHostName and Verify WebApp Connectivity
+        shell: pwsh
+        run: |
+          $webApp = Get-Content ${{ env.webAppName }}.json -Raw | ConvertFrom-Json
+          Invoke-WebRequest -Uri $webApp.DefaultHostName
+
+      - name: Parse DefaultHostName and Verify WebApp Connectivity
+        shell: bash
+        run: |
+          curl -k https://$webApp.DefaultHostName
+
+  
