@@ -31,7 +31,7 @@ jobs:
               -Name ${{ env.webAppName }} | ConvertTo-Json > ${{ env.webAppName }}.json        
           azPSVersion: "latest"
           
-      - name: Upload ${{ env.webAppName }.json   
+      - name: Upload ${{ env.webAppName }}.json   
         uses: actions/upload-artifact@v3
         with:
           name: webAppNameObject
