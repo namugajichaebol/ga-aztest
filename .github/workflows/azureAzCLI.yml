@@ -40,3 +40,33 @@ jobs:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/workflows/scripts/azureAzCLI.sh
             $GITHUB_WORKSPACE/workflows/scripts/azureAzCLI.sh "${{ env.resource_group_name }}"
+
+  azureBicepDeploy:
+    name: Test running Azure ARM deploy to deploy Azure Resources via Bicep Templates
+    runs-on: ubuntu-latest
+    env:
+      location: eastus
+
+    steps:
+      - uses: actions/checkout@v3
+     
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy a Bicep Template to create an Azure Resource VirtualMachine
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resource_group_name }}
+          deploymentName: ${{ env.resource_group_name }}
+          template: ./vm/windows.bicep
+          parameters:  
+            adminUsername=AdminUser
+            adminPassword=${{ secrets.adminPassword }}
+            location=${{ env.location }}
+            vmName=${{ env.vmName }}
+            virtualNetworkName=vnet-namuigaji01
+            subnetName=vnet-namuigaji01-1
+          failOnStdErr: false
