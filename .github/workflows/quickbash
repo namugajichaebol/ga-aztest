@@ -1,29 +1,24 @@
-name: actionbashWebApp
+name: dynamicMatrix
 
 on:
   workflow_dispatch:
-
-env:
-  resource_group_name: CreatePrivateEndpointQS-rg
-  webAppName: app-namugaji667
-  artifactRetention: 1
   
 jobs:
-  validateWebAppDeploy:
-    name: Display results
+  setup:
     runs-on: ubuntu-latest
-    needs: azureWebAppDeploy
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Download ${{ env.webAppName }}.json
-        uses: actions/download-artifact@v3
-        with:
-          name: webAppNameObject
-      
-      - name: Print the final result
-        shell: pwsh
+      - id: matrix
         run: |
-          $webApp = Get-Content ${{ env.webAppName }}.json -Raw | ConvertFrom-Json
-          Invoke-WebRequest -Uri $webApp.DefaultHostName
+          echo '::set-output name=value::[\"a\", \"b\", \"c\"]'
+  build:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{fromJson(needs.setup.outputs.matrix)}}
+    steps:
+      - run: |
+          echo "${{ matrix.value }}"
           
