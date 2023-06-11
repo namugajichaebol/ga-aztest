@@ -5,7 +5,7 @@ on:
 
 env:
   resource_group_name: CreatePrivateEndpointQS-rg
-  webAppName: app-namugaji666
+  webAppName: webApp-slck2oouokqyg
   
 jobs:
   azureWebAppDeploy:
@@ -22,19 +22,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy a Bicep Template to create an Azure Resource WebApp
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourceGroupName: ${{ env.resource_group_name }}
-          subscriptionId: ${{ secrets.subscriptionId }}
-          deploymentName: ${{ env.resource_group_name }}
-          template: ./webApp.bicep
-          parameters:  
-            webAppName=${{ env.webAppName }}
-            helloWorld=true
-          failOnStdErr: false
-
+# edit below
       - name: Run Azure PowerShell
         uses: Azure/powershell@v1
         with:
