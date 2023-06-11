@@ -1,4 +1,4 @@
-name: bashWebApp
+name: actionbashWebApp
 
 on:
   workflow_dispatch:
