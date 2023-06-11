@@ -15,12 +15,6 @@ var vnetAddressPrefixArray = split(vnetAddressPrefix, '.')
 var vnetAddressPrefixNetwork = '${vnetAddressPrefixArray[0]}.${vnetAddressPrefixArray[1]}.'
 var nsgDefaultName  = 'nsg-vnet${vnetIndex}-default'
 
-@description('Determine if vnet0 exists')
-resource sVnet 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
-    name: hubvnetName
-}
-var resourceVnetExists = contains(sVnet.id, hubvnetName)
-
 resource nsgDefaultName_resource 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
   name: nsgDefaultName
   location: location
