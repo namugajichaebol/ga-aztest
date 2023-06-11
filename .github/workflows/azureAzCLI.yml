@@ -34,21 +34,6 @@ jobs:
             webAppName=${{ env.webAppName }}
             helloWorld=true
           failOnStdErr: false
-          
-  azurePowerShellAction:
-    name: Test running Azure PowerShell Workflow2
-    runs-on: ubuntu-latest
-    env:
-      location: eastus
-      
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true 
 
       - name: Run Azure PowerShell
         uses: Azure/powershell@v1
