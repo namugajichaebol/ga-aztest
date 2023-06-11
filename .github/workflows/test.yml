@@ -41,7 +41,7 @@ jobs:
             $GITHUB_WORKSPACE/workflows/scripts/azureAzCLI.sh "${{ env.resource_group_name }}"
 
   azureBicepDeploy:
-    name: Test running Azure deploy to deploy Azure Resources via Bicep Templates
+    name: Test running Azure ARM deploy to deploy Azure Resources via Bicep Templates
     runs-on: ubuntu-latest
     env:
       location: eastus
@@ -54,7 +54,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Azure Resource Virtual Machine
+      - name: Deploy a Bicep Template to create an Azure Resource VirtualMachine
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
@@ -66,19 +66,8 @@ jobs:
             adminPassword=${{ secrets.adminPassword }}
             location=${{ env.location }}
             vmName=${{ env.vmName }}
-            virtualNetworkName=namuigaji-vnet2
-            subnetName=namuigaji-vnet2-1
-          failOnStdErr: false
-
-      - name: Deploy a Bicep Template to create an Azure Resource WebApp
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourceGroupName: ${{ env.resource_group_name }}
-          subscriptionId: ${{ secrets.subscriptionId }}
-          deploymentName: ${{ env.resource_group_name }}
-          template: ./bicep/modules/webApp.bicep
-          parameters:  helloWorld=true
+            virtualNetworkName=vnet-namuigaji01
+            subnetName=vnet-namuigaji01-1
           failOnStdErr: false
           
   azurePowerShellAction:
@@ -95,6 +84,7 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # Required for Actions Powershell https://github.com/marketplace/actions/azure-login
           enable-AzPSSession: true 
 
       # Azure PowerShell:  https://github.com/Azure/powershell        
@@ -114,7 +104,7 @@ jobs:
           azPSVersion: "latest"
           
       # https://learn.microsoft.com/en-us/powershell/module/az.compute/invoke-azvmruncommand?view=azps-10.0.0
-      - name: Run Azure PowerShell Invoke-AzVMRun Command on an existing Azure VM
+      - name: Run Azure PowerShell Invoke-AzVMRunCommand on an existing Azure VM
         uses: Azure/powershell@v1
         with:
           inlineScript: |
