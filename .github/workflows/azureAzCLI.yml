@@ -5,7 +5,8 @@ on:
 
 env:
   resource_group_name: CreatePrivateEndpointQS-rg
-  webAppName: webApp-slck2oouokqyg
+  webAppName: app-namugaji666
+  artifactRetention: 1
   
 jobs:
   azureWebAppDeploy:
@@ -21,9 +22,22 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # required for Azure/powershell
           enable-AzPSSession: true 
-          
-# edit below
+
+      - name: Deploy a Bicep Template to create an Azure Resource WebApp
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resource_group_name }}
+          subscriptionId: ${{ secrets.subscriptionId }}
+          deploymentName: ${{ env.resource_group_name }}
+          template: ./webApp.bicep
+          parameters:  
+            webAppName=${{ env.webAppName }}
+            helloWorld=true
+          failOnStdErr: false
+
       - name: Run Azure PowerShell
         uses: Azure/powershell@v1
         with:
@@ -37,16 +51,16 @@ jobs:
         with:
           name: webAppNameObject
           path: ${{ env.webAppName }}.json   
-          retention-days: 1
+          retention-days: ${{ env.artifactRetention }}
 
-  validateAction:
+  validateActionFromPowerShell:
     name: Display results
     runs-on: ubuntu-latest
     needs: azureWebAppDeploy
     steps:
       - uses: actions/checkout@v3
       
-      - name: Download math result for job 2
+      - name: Download ${{ env.webAppName }}.json
         uses: actions/download-artifact@v3
         with:
           name: webAppNameObject
@@ -57,4 +71,3 @@ jobs:
           $webApp = Get-Content ${{ env.webAppName }}.json -Raw | ConvertFrom-Json
           Invoke-WebRequest -Uri $webApp.DefaultHostName
           
-
