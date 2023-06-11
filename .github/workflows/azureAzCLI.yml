@@ -4,10 +4,37 @@ on:
   workflow_dispatch:
 
 env:
-  resource_group_name: az104-09a-rg1-lod31673461
+  resource_group_name: CreatePrivateEnbdpointQS-rg
   webAppName: app-namugaji666
   
 jobs:
+  azureWebAppDeploy:
+    name: Create a WebApp
+    runs-on: ubuntu-latest
+    env:
+      location: eastus
+
+    steps:
+      - uses: actions/checkout@v3
+     
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy a Bicep Template to create an Azure Resource WebApp
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resource_group_name }}
+          subscriptionId: ${{ secrets.subscriptionId }}
+          deploymentName: ${{ env.resource_group_name }}
+          template: ./webApp.bicep
+          parameters:  
+            webAppName=${{ env.webAppName }}
+            helloWorld=true
+          failOnStdErr: false
+          
   azurePowerShellAction:
     name: Test running Azure PowerShell Workflow2
     runs-on: ubuntu-latest
