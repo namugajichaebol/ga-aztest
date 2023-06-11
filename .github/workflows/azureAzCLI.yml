@@ -32,7 +32,7 @@ jobs:
           resourceGroupName: ${{ env.resource_group_name }}
           subscriptionId: ${{ secrets.subscriptionId }}
           deploymentName: ${{ env.resource_group_name }}
-          template: ./bicep/modules/webApp.bicep
+          template: ./webApp.bicep
           parameters:  
             webAppName=${{ env.webAppName }}
             helloWorld=true
