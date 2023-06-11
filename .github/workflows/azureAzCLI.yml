@@ -1,11 +1,11 @@
-name: actionAzWorkflowsWebApp
+name: actionAzWorkflows
 
 on:
   workflow_dispatch:
 
 env:
   resource_group_name: createPrivateEndpointQS-rg
-  webAppName: app-namugaji667
+  vmName: vm-namigaji01
   artifactRetention: 1
   
 jobs:
@@ -16,64 +16,34 @@ jobs:
       location: eastus
 
     steps:
+  azureCLIAction:
+    name: Test running Azure CLI Workflow
+    runs-on: ubuntu-latest
+    env:
+      location: westus
+
+    steps:
       - uses: actions/checkout@v3
-     
+
+      # Azure Login:  https://github.com/Azure/login
       - name: Azure Login
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          # required for Azure/powershell
-          enable-AzPSSession: true 
 
-      - name: Deploy a Bicep Template to create an Azure Resource WebApp
-        uses: Azure/arm-deploy@v1
+      # Azure CLI:  https://github.com/Azure/cli
+      - name: Run Azure CLI
+        uses: Azure/CLI@v1.0.7
         with:
-          scope: resourcegroup
-          resourceGroupName: ${{ env.resource_group_name }}
-          subscriptionId: ${{ secrets.subscriptionId }}
-          deploymentName: ${{ env.resource_group_name }}
-          template: ./webApp.bicep
-          parameters:  
-            webAppName=${{ env.webAppName }}
-            helloWorld=true
-          failOnStdErr: false
-
-      - name: Run Azure PowerShell
-        uses: Azure/powershell@v1
-        with:
+          azcliversion: 2.30.0
           inlineScript: |
-            Get-AzWebApp -ResourceGroupName ${{ env.resource_group_name }} `
-              -Name ${{ env.webAppName }} | ConvertTo-Json > ${{ env.webAppName }}.json        
-          azPSVersion: "latest"
-          
-      - name: Upload WebApp Properties Artifact
-        uses: actions/upload-artifact@v3
+            az group list
+            az deployment group list --resource-group "${{ env.resource_group_name }}"
+
+      - name: Run Azure CLI script
+        uses: Azure/CLI@v1.0.7
         with:
-          name: webAppNameObject
-          path: ${{ env.webAppName }}.json   
-          retention-days: ${{ env.artifactRetention }}
-
-  validateWebAppDeploy:
-    name: Display results
-    runs-on: ubuntu-latest
-    needs: azureWebAppDeploy
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Download WebApp Properties Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: webAppNameObject
-      
-      - name: Parse DefaultHostName and Verify WebApp Connectivity
-        shell: pwsh
-        run: |
-          $webApp = Get-Content ${{ env.webAppName }}.json -Raw | ConvertFrom-Json
-          Invoke-WebRequest -Uri $webApp.DefaultHostName
-
-      - name: Parse DefaultHostName and Verify WebApp Connectivity
-        shell: bash
-        run: |
-          curl -k https://$webApp.DefaultHostName
-
-  
+          azcliversion: 2.30.0
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/workflows/scripts/azureAzCLI.sh
+            $GITHUB_WORKSPACE/workflows/scripts/azureAzCLI.sh "${{ env.resource_group_name }}"
