@@ -9,13 +9,6 @@ env:
   artifactRetention: 1
   
 jobs:
-  azureWebAppDeploy:
-    name: Create a WebApp
-    runs-on: ubuntu-latest
-    env:
-      location: eastus
-
-    steps:
   azureCLIAction:
     name: Test running Azure CLI Workflow
     runs-on: ubuntu-latest
