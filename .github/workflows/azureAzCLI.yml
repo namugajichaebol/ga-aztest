@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  resource_group_name: CreatePrivateEnbdpointQS-rg
+  resource_group_name: CreatePrivateEndpointQS-rg
   webAppName: app-namugaji666
   
 jobs:
