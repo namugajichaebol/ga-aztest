@@ -1,6 +1,14 @@
 # [Some Azure PowerShell]()
 While learning some Azure and bicep, I figured I should also brush up on some PowerShell. Its been a while since I had to write any PowerShell (last time I believe, was for some vmware PowerCLI eons ago), so I figured this would be a good opportunity.  Though for most work, I tend to favor an *ix shell, I have to admit that I really liked Powershell for imperative work on Azure (with the exception of AKS).  In fact, re-learning PowerShell was actually enjoyable this time around.  Not sure about others, but it always took me a bit of time, getting back up to speed with jq, which seems almost a necessity when working with cloud cli running over bash.  With Powershell, you really don't have to concern yourself with jq.
 
+### Why not Azure Resource Graph
+Please note, that for most of these functions, its probably better to use something like, Azure Resource Graph Explorer.
+You can access this via Azure Portal, or use your choice of posion via Search-AzGraph or az graph.  
+Azure Resource Graph is probably the best tool to use when performing queries against Azure Resource Manager.
+Personally, I think the best route is to (1) create queries from Azure Resource Graph, and then save the queries later for use with your shell of choice.
+Using Azure Resource Graph is faster, and often easier to query Azure resources via KQL.
+With Search-AzGraph, you can still implement PowerShell's error handling, paging, etc., as well as stored KQL queries for repeatable execution.
+
 ### Azure PowerShell Scripts
 Most PowerShell scripts that I have been commonly using are under the project's [bin directory](https://github.com/namugajichaebol/azure-ABC/blob/main/bin/).  Some of the PS scripts were from lab material.  However, I wrote the following scripts for giggles.
 | Script Name                         | Description          
